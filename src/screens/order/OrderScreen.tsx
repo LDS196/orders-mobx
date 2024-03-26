@@ -1,5 +1,5 @@
 import { Pencil } from '@gravity-ui/icons';
-import { Button, Table, TableDataItem, withTableSorting } from '@gravity-ui/uikit';
+import { Button, Table, withTableSorting, Link } from '@gravity-ui/uikit';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Simulate } from 'react-dom/test-utils';
@@ -85,12 +85,21 @@ export const OrderScreen: React.FC = observer(() => {
 
   // Renders
 
-  const renderNumber = (item: TableDataItem) => {
+  const renderNumber = (item: OrderModel) => {
     return (
       <div>
         <span style={{ marginRight: '10px' }}>{item.number}</span>
-        <Pencil onClick={() => handleOrderCardOpen(item as OrderModel)} />
+        <Pencil onClick={() => handleOrderCardOpen(item)} />
       </div>
+    );
+  };
+
+  const renderCode = (item: OrderModel) => {
+    const code = item.codeTransporter ?? '';
+    return (
+      <Link view="normal" href={`https://ati.su/firms/${code}/info`} target="_blank">
+        {item.codeTransporter}
+      </Link>
     );
   };
 
@@ -104,7 +113,11 @@ export const OrderScreen: React.FC = observer(() => {
           </Button>
         </div>
 
-        <OrderTable data={orderStore.orderList} columns={getOrderColumns(renderNumber)} emptyMessage={'no data'} />
+        <OrderTable
+          data={orderStore.orderList}
+          columns={getOrderColumns(renderNumber, renderCode)}
+          emptyMessage={'no data'}
+        />
       </FormProvider>
       <OrderFormModal
         open={isOrderCardOpen}

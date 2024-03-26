@@ -1,6 +1,7 @@
 import { DatePicker } from '@gravity-ui/date-components';
 import { dateTimeParse } from '@gravity-ui/date-utils';
 import { Button, Modal, Select } from '@gravity-ui/uikit';
+// eslint-disable-next-line import/no-unresolved
 import { ModalProps } from '@gravity-ui/uikit/build/cjs/components/Modal/Modal';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { observer } from 'mobx-react-lite';
@@ -92,13 +93,13 @@ export const OrderFormModal: React.FC<IOrderFormModalProps> = observer((props) =
 
   // Handlers
 
-  const handleRepeat = () => {
-    if (!orderId) {
-      return;
-    }
-
-    orderStore.getOrder(orderId);
-  };
+  // const handleRepeat = () => {
+  //   if (!orderId) {
+  //     return;
+  //   }
+  //
+  //   orderStore.getOrder(orderId);
+  // };
 
   const handleClose = () => {
     onClose();

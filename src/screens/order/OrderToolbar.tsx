@@ -6,13 +6,11 @@ import { OutlinedInputWithController } from '~base/components/OutlinedInputWithC
 import { OrderFiltersForm, OrderFiltersFormFields } from '~modules/order/forms/OrderFiltersForm';
 
 interface IOrderToolbarProps {
+  //сбросить все фильтры
   onReset: () => void;
 }
 
-export const OrderToolbar: React.FC<IOrderToolbarProps> = (props) => {
-  const { onReset } = props;
-
-  // Основная форма фильтров
+export const OrderToolbar: React.FC<IOrderToolbarProps> = () => {
   const { control } = useFormContext<OrderFiltersForm>();
 
   // Effects
