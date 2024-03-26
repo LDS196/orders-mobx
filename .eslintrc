@@ -1,0 +1,119 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "project": "./tsconfig.json",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier", "tss-unused-classes"],
+  "root": true,
+  "rules": {
+    "react/display-name": "off",
+    "prettier/prettier": ["error", {"endOfLine": "auto"}],
+    "@typescript-eslint/no-empty-function": ["error", { "allow": ["arrowFunctions"] }],
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unused-expressions": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-misused-promises": [2, { "checksVoidReturn": { "attributes": false } }],
+    "@typescript-eslint/dot-notation": "off",
+    "@typescript-eslint/type-annotation-spacing": [
+      "error",
+      {
+        "before": false,
+        "after": true,
+        "overrides": {
+          "arrow": {
+            "before": true,
+            "after": true
+          }
+        }
+      }
+    ],
+    "object-curly-spacing": ["error", "always"],
+    // "camelcase": "warn",
+    "radix": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "import/newline-after-import": ["error", { "count": 1 }],
+    "react/require-default-props": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-non-null-assertion": "off", //foo.property!.includes('baz');
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-inferrable-types": "off", //a: boolean = false
+    "@typescript-eslint/no-explicit-any": "off", //a:any
+    "@typescript-eslint/ban-ts-comment": "off", //@ts - ignore
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }], // class methods new line
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] }, // vars new line
+      { "blankLine": "always", "prev": "*", "next": ["block-like", "try"] }, // before try, throw, if, for etc... new line
+      { "blankLine": "always", "prev": ["block-like", "try"], "next": ["return"] } // before return after try, throw, if, for etc... new line
+    ],
+    "tss-unused-classes/unused-classes": "warn"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["~assets", "./public/assets"],
+          ["~", "./src"],
+          ["~base", "./src/base"],
+          ["~helpers", "./src/helpers"],
+          ["~hooks", "./src/hooks"],
+          ["~modules", "./src/modules"],
+          ["~routes", "./src/routes"],
+          ["~screens", "./src/screens"],
+          ["~styles", "./src/styles"],
+          ["~typings", "./src/typings"],
+          ["~components", "./src/components"]
+        ],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "node": {
+        "paths": ["src", "public"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
+}
