@@ -77,7 +77,7 @@ export default class OrderService {
 
   updateOrderList = (orderList: OrderModel[], updatedOrder: OrderModel): OrderModel[] => {
     return orderList.map((order) => {
-      if (order.id === order.id) {
+      if (order.id === updatedOrder.id) {
         return updatedOrder;
       }
 

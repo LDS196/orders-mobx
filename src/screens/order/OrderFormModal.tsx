@@ -131,7 +131,7 @@ export const OrderFormModal: React.FC<IOrderFormModalProps> = observer((props) =
 
   const handleRemoveSuccessResult = () => {
     handleClose();
-    onRefreshList();
+    // onRefreshList();
   };
 
   const handleRemoveOrder = () => {
@@ -248,7 +248,11 @@ export const OrderFormModal: React.FC<IOrderFormModalProps> = observer((props) =
           {!isCompleted && (
             <div style={{ display: 'flex', justifyContent: 'space-around', paddingBottom: '20px' }}>
               {orderId && (
-                <Button loading={orderStore.removeOrderLoading} onClick={() => handleTryRemoveOrder(orderId)}>
+                <Button
+                  loading={orderStore.removeOrderLoading || orderStore.updateOrderLoading}
+                  disabled={orderStore.removeOrderLoading || orderStore.updateOrderLoading}
+                  onClick={() => handleTryRemoveOrder(orderId)}
+                >
                   remove
                 </Button>
               )}
@@ -257,7 +261,7 @@ export const OrderFormModal: React.FC<IOrderFormModalProps> = observer((props) =
                 view={'action'}
                 type="submit"
                 loading={orderStore.createOrderLoading || orderStore.updateOrderLoading}
-                disabled={orderStore.removeOrderLoading}
+                disabled={orderStore.createOrderLoading || orderStore.updateOrderLoading}
               >
                 save
               </Button>

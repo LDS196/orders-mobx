@@ -17,7 +17,6 @@ import reset = Simulate.reset;
 export const OrderScreen: React.FC = observer(() => {
   const OrderTable = withTableSorting(Table);
   const { orderStore } = useRootStore();
-
   const methods = useForm<OrderFiltersForm>({
     defaultValues: { ...OrderFiltersForm.create() },
   });

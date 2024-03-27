@@ -1,6 +1,7 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
-import { filteredOrders, getMockOrder, getMockOrders } from '~modules/order/data/mockData';
+import { modelFactory } from '~base/ModelFactory';
+import { filteredOrders, getMockOrders } from '~modules/order/data/mockData';
 
 import OrderService from './OrderService';
 import { OrderFiltersForm } from './forms/OrderFiltersForm';
@@ -61,7 +62,11 @@ export class OrderStore {
       .catch(() => {
         // TODO
         // mock data
-        this.setOrderData(getMockOrder());
+        const foundOrder = this.orderList.find((order) => order.id === id);
+
+        if (foundOrder) {
+          this.setOrderData(foundOrder);
+        }
         this.setOrderDataLoaded(false);
       })
       .finally(() => {
@@ -75,13 +80,16 @@ export class OrderStore {
     this.orderService
       .createOrder(form)
       .then((newOrder) => {
-        runInAction(() => {
-          this.orderList.push(newOrder);
-        });
-
+        this.orderList.push(newOrder);
         onSuccess(newOrder.id!);
       })
-      .catch(() => {})
+      .catch(() => {
+        // TODO
+        // mock data
+        const order = modelFactory.create(OrderModel, { ...form, id: Date.now() });
+        this.orderList.push(order);
+        onSuccess(order.id!);
+      })
       .finally(() => {
         this.setCreateOrderLoading(false);
       });
@@ -94,10 +102,17 @@ export class OrderStore {
       .updateOrder(orderId, form)
       .then((order) => {
         this.setOrderList(this.orderService.updateOrderList(this.orderList, order));
-
         onSuccess();
       })
-      .catch(() => {})
+      .catch(() => {
+        // TODO
+        // mock data
+        const order = modelFactory.create(OrderModel, { ...form, id: orderId });
+        console.log(form);
+        console.log(order);
+        this.setOrderList(this.orderService.updateOrderList(this.orderList, order));
+        onSuccess();
+      })
       .finally(() => {
         this.setUpdateOrderLoading(false);
       });
@@ -111,7 +126,12 @@ export class OrderStore {
       .then(() => {
         onSuccess();
       })
-      .catch(() => {})
+      .catch(() => {
+        // TODO
+        // mock data
+        this.orderList = this.orderList.filter((order) => order.id !== orderId);
+        onSuccess();
+      })
       .finally(() => {
         this.setRemoveOrderLoading(false);
       });
