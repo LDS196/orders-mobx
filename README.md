@@ -1,4 +1,13 @@
 :seedling: <a href="https://orders-mobx.vercel.app/" target="_blank">Orders</a>
+---
+Clone repositories:
+```
+git clone https://github.com/LDS196/orders-mobx.git
+```
+Install dependencies:
+```
+yarn install
+```
 Тестовое задание на должность
 javascript developer
 Необходимо разработать прототип системы ведения заявок для логистов в авто
