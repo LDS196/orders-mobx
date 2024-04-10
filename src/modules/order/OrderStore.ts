@@ -108,8 +108,6 @@ export class OrderStore {
         // TODO
         // mock data
         const order = modelFactory.create(OrderModel, { ...form, id: orderId });
-        console.log(form);
-        console.log(order);
         this.setOrderList(this.orderService.updateOrderList(this.orderList, order));
         onSuccess();
       })
@@ -142,7 +140,7 @@ export class OrderStore {
   /**
    * Подготавливает данные заявки для формы. Переименует поля под форму и оставляет только `NonNullable` значении.
    *
-   * @param data - данные сотрудника
+   * @param data - данные формы
    * @returns объект с `NonNullable` данными
    */
   prepareOrderFormValues = (data: OrderModel) => {

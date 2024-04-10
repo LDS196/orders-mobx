@@ -48,4 +48,71 @@ https://gitlab.com/
 Зафиксировать сколько времени ушло на решение тестового задания.
 Ссылку на репозиторий или репозитории с тестовым заданием + ваше резюме
 присылать на e-mail job.dev@yeticrab.org.
-2
+
+
+///
+# Общая Модель Ответа API
+
+Каждый ответ от сервера следует общей структуре:
+## IAxiosResponse
+- `success`: `boolean` - Указывает, была ли операция успешной.
+- `userInfo`: `string | null` - Дополнительная информация о пользователе.
+- `data`: `T` - Данные ответа, где `T` может быть любым типом данных, специфичным для запроса.
+- `dataInfo`: `PaginationModel | null` - Информация для пагинации, присутствует только если данные поддерживают разбивку по страницам.
+- `errorInfo`: `string[] | null` - Список ошибок.
+## PaginationModel
+  {
+  "pageSize": "number",
+  "pageCount": "number",
+  "pageNumber": "number",
+  }
+## Получение Списка Заказов
+
+- **Endpoint**: GET /Order/GetOrders
+- **Параметры**: URLSearchParams - параметры запроса (фильтры, пагинация и т.д.).
+- **Ответ**: IAxiosResponse<Array<Тип данных заказа>>
+
+## Получение Заказа по ID
+
+- **Endpoint**: GET /Order/GetOrder
+- **Параметры**: orderId (число) - идентификатор заказа.
+- **Ответ**: IAxiosResponse<Тип данных заказа>
+
+## Создание Заказа
+
+- **Endpoint**: POST /Order/CreateOrder
+- **Тело запроса**: 
+- {
+  "number": "string",
+  "date": "string",
+  "clientName": "string",
+  "phoneTransporter": "string",
+  "notes": "string",
+  "status": "new" |"inProgress" | "completed,
+  "codeTransporter": "string"
+  }
+- **Ответ**: IAxiosResponse<Тип данных результата создания>
+
+## Обновление Заказа
+
+- **Endpoint**: PUT /Order/UpdateOrder
+- **Тело запроса**:
+- {
+  "orderId": "number",
+  "number": "string",
+  "date": "string",
+  "clientName": "string",
+  "phoneTransporter": "string",
+  "notes": "string",
+  "status": "new" |"inProgress" | "completed,
+  "codeTransporter": "string"
+  }
+- **Ответ**: IAxiosResponse<Тип данных результата обновления>
+
+## Удаление Заказа
+
+- **Endpoint**: PUT /Order/RemoveOrder
+- **Параметры**: orderId (число) - идентификатор заказа для удаления.
+- **Ответ**: IAxiosResponse<Тип данных результата удаления>
+
+
