@@ -44,11 +44,11 @@ export const getMockOrder = () => {
 
 export const filteredOrders = (data: OrderModel[], filterForm: OrderFiltersForm) =>
   data.filter((el) => {
-    if (filterForm.clientName && el.clientName !== filterForm.clientName) {
+    if (filterForm.clientName && !el.clientName?.toLowerCase().includes(filterForm.clientName.toLowerCase())) {
       return false;
     }
 
-    if (filterForm.numberOrder && el.number !== filterForm.numberOrder) {
+    if (filterForm.numberOrder && !el.number?.toLowerCase().includes(filterForm.numberOrder.toLowerCase())) {
       return false;
     }
 
